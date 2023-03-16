@@ -6,7 +6,12 @@ import { BigNumber } from 'ethers'
 export type MintFormProps = {
   assetAddress: string
   ownerAddress: string
-  amount: string
+  amount?: string
+}
+
+export type Approves = {
+  minimalApproveAmount: BigNumber
+  requestApproveAmount: BigNumber
 }
 
 export type FullMintCollateralAsset = MintCollateralAsset &
@@ -18,6 +23,7 @@ export type MintFormState = (
     }
   | {
       status: 'needApprove'
+      minimalApproveAmount: BigNumber
       shouldBeApproved: BigNumber
     }
   | {

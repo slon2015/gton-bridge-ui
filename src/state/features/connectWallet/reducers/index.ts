@@ -1,6 +1,6 @@
-import { extraReducers as fetchNetworkStateThunlApply } from '@src/state/features/connectWallet/reducers/fetchNetworkStatus'
+import { extraReducers as fetchNetworkState } from '@src/state/features/connectWallet/reducers/fetchNetworkStatus'
 
-export const extraReducers = [fetchNetworkStateThunlApply]
+export const extraReducers = [fetchNetworkState]
 
 export { metamaskUnavaliable } from '@src/state/features/connectWallet/reducers/metamaskUnavailable'
 export { metamaskDisconnected } from '@src/state/features/connectWallet/reducers/metamaskDisconnected'

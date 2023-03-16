@@ -9,3 +9,7 @@ export function formatCurrency(amount: BigNumberish, decimals: number): string {
     amountWithPercents.substring(0, amountWithPercents.length - 2) || '0'
   }.${amountWithPercents.substring(amountWithPercents.length - 2) || '00'}`
 }
+
+export function toWei(amount: BigNumberish, decimals: number): BigNumber {
+  return BigNumber.from(amount).mul(BigNumber.from(10).pow(decimals))
+}

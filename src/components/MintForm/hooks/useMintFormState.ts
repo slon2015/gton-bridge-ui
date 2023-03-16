@@ -1,9 +1,9 @@
-import { InitializedWalletState } from '@src/state/features/connectWallet'
+import { InitialisedWalletState } from '@src/state/features/connectWallet'
 import { InitialisedMintState } from '@src/state/features/gcd/types'
 import { RootState } from '@src/state/store'
 import { BigNumber } from 'ethers'
 import { useSelector } from 'react-redux'
-import { approveMinimalAmmount } from '../approveAmmounts'
+import { approveAmmounts } from '@src/utils/approves'
 import { FullMintCollateralAsset, MintFormState } from '../types'
 
 function resolveFullAssetInfo(
@@ -15,7 +15,7 @@ function resolveFullAssetInfo(
   )[0]
 
   const common = (
-    state.wallet.data as InitializedWalletState
+    state.wallet.data as InitialisedWalletState
   ).colateralAssets.filter((asset) => asset.address === assetAddress)[0]
 
   return {
@@ -26,12 +26,12 @@ function resolveFullAssetInfo(
 
 export function useMintFormState(
   assetAddress: string,
-  mintAmount: string
+  mintAmount?: string
 ): MintFormState {
   return useSelector<RootState, MintFormState>((state) => {
     if (
       state.gcd.data.status !== 'received' ||
-      state.wallet.data.status !== 'initialized'
+      state.wallet.data.status !== 'initialised'
     ) {
       throw new Error('Mint not received')
     }
@@ -48,16 +48,18 @@ export function useMintFormState(
       }
     }
 
-    const shouldBeApproved = approveMinimalAmmount(
-      asset.decimals,
-      BigNumber.from(mintAmount)
-    )
+    const approves = approveAmmounts(asset.decimals, {
+      mintAmount: mintAmount ? BigNumber.from(mintAmount) : undefined,
+    })
 
-    if (BigNumber.from(asset.approvedAmmount).lt(shouldBeApproved)) {
+    if (
+      BigNumber.from(asset.approvedAmmount).lt(approves.minimalApproveAmount)
+    ) {
       return {
         status: 'needApprove',
         asset,
-        shouldBeApproved,
+        shouldBeApproved: approves.requestApproveAmount,
+        minimalApproveAmount: approves.minimalApproveAmount,
         chainId,
         contracts: state.wallet.data.contracts,
       }

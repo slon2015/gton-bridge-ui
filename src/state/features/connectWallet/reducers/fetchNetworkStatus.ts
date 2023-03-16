@@ -6,7 +6,7 @@ export const extraReducers: ExtraReducersApply<WalletState> = (builder) => {
   return builder
     .addCase(fetchNetworkMintStateAction.fulfilled, (state, action) => {
       state.data = {
-        status: 'initialized',
+        status: 'initialised',
         chainId: action.meta.arg.chainId,
         address: action.meta.arg.ownerAddress,
         contracts: action.meta.arg.contracts,

@@ -1,3 +1,4 @@
+import { FullMintCollateralAsset } from '@src/components/MintForm/types'
 import { NetworkContracts } from '@src/config/networks'
 import type { BigNumberish } from 'ethers'
 
@@ -54,7 +55,8 @@ export type AssetApproveResponse = {
 export type JoinGcdRequest = {
   assetAddress: string
   gcdAmount: string
-  assetAmount: string
+  asset: FullMintCollateralAsset
+  mintInputAmount: BigNumberish
   ownerAddress: string
   contracts: Pick<
     NetworkContracts,

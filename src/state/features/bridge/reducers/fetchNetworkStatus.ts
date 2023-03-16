@@ -6,10 +6,11 @@ export const extraReducers: ExtraReducersApply<BridgeState> = (builder) => {
   return builder
     .addCase(fetchNetworkMintStateAction.fulfilled, (state, action) => {
       state.data = {
-        status: 'initialized',
+        status: 'initialised',
         gcd: {
           amount: action.payload.gcdAsset.amount,
           approvedAmount: action.payload.gcdAsset.bridgeAllowedAmount,
+          operation: 'none',
         },
       }
     })

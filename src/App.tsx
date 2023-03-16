@@ -16,6 +16,7 @@ import {
 } from '@src/config/networks'
 import MintForm from '@src/components/MintForm'
 import { fetchNetworkMintStateAction } from './state/features/common/thunks/fetchNetworkStatus'
+import BridgeFrom from './components/BridgeForm/component'
 
 function App() {
   const { status, connect, account, chainId, switchChain, ethereum } =
@@ -26,20 +27,21 @@ function App() {
     ...state.wallet,
     isInitialized:
       state.gcd.data.status === 'received' &&
-      state.wallet.data.status === 'initialized',
+      state.wallet.data.status === 'initialised' &&
+      state.bridge.data.status === 'initialised',
     assets:
       state.gcd.data.status === 'received'
         ? state.gcd.data.colateralAssets
         : null,
     vaultAddress:
-      state.wallet.data.status === 'initialized'
+      state.wallet.data.status === 'initialised'
         ? state.wallet.data.contracts.vaultContractAddress
         : null,
   }))
 
-  useEffect(() => {
-    const numericChainId = Number(chainId)
+  const numericChainId = Number(chainId)
 
+  useEffect(() => {
     if (status === 'connected') {
       ethereum.once('chainChanged', (chainId: string) => {
         dispatch(
@@ -80,7 +82,7 @@ function App() {
     if (status === 'unavailable') {
       dispatch(metamaskUnavaliable())
     }
-  }, [account, status, chainId, switchChain, dispatch, ethereum])
+  }, [account, status, numericChainId, switchChain, dispatch, ethereum])
 
   let statusElem: JSX.Element | null = null
 
@@ -115,7 +117,6 @@ function App() {
           <MintForm
             assetAddress={asset.address}
             ownerAddress={account}
-            amount="100000000000000000000"
             key={i}
           />
         ))}
@@ -129,6 +130,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         {statusElem}
+        {account && !Number.isNaN(numericChainId) && state.isInitialized && (
+          <BridgeFrom account={account} chainId={numericChainId} />
+        )}
         {assets}
       </header>
     </div>

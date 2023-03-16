@@ -20,9 +20,5 @@
       "@src/*": ["src/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "generated/**/*.ts",
-    "src/**.tsx"
-  ]
+  "include": ["src/**/*.ts", "generated/**/*.ts", "src/**.tsx"]
 }

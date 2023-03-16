@@ -12,29 +12,37 @@ export const joinGcdAction = createAsyncThunk<JoinGcdResponse, JoinGcdRequest>(
   'gcd/joinGcd',
   async (action) => {
     const manager = CDPManagerService.getInstance()
-    const { assetAddress, assetAmount, gcdAmount, ownerAddress, contracts } =
-      action
+    const {
+      assetAddress,
+      asset,
+      gcdAmount,
+      ownerAddress,
+      contracts,
+      mintInputAmount,
+    } = action
     const { cdpManagerContractAddress, vaultContractAddress } = contracts
 
     await manager.join(
       cdpManagerContractAddress,
       BigNumber.from(gcdAmount),
       assetAddress,
-      BigNumber.from(assetAmount)
+      BigNumber.from(mintInputAmount)
     )
 
     const bep20 = Bep20Service.getInstance()
 
-    const asset = await fetchAssetState(
+    const fetchedAsset = await fetchAssetState(
       bep20,
       ownerAddress,
       { vault: vaultContractAddress },
       {
         address: assetAddress,
+        name: asset.name,
+        decimals: asset.decimals,
       }
     )
 
-    const { amount, allowances } = asset
+    const { amount, allowances } = fetchedAsset
     const newGcdAmount = await bep20.getBalance(
       contracts.gcdContractAddress,
       ownerAddress

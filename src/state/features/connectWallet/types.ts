@@ -15,8 +15,8 @@ export type ConnectedWalletState = {
   address: string
 }
 
-export type InitializedWalletState = Omit<ConnectedWalletState, 'status'> & {
-  status: 'initialized'
+export type InitialisedWalletState = Omit<ConnectedWalletState, 'status'> & {
+  status: 'initialised'
   colateralAssets: Array<ColateralAsset>
   contracts: NetworkContracts
 }
@@ -31,7 +31,7 @@ export type InappropriateNetworkWalletState = {
 
 export type WalletState = {
   data:
-    | InitializedWalletState
+    | InitialisedWalletState
     | ConnectedWalletState
     | InappropriateNetworkWalletState
     | {

@@ -8,7 +8,8 @@ export async function fetchAssetState<A extends Record<string, string>>(
   bep20: Bep20Service,
   ownerAddress: string,
   allowee: A,
-  init: Omit<InitialCollateralAsset, 'riskRatio'>
+  init: Omit<InitialCollateralAsset, 'riskRatio'> &
+    Partial<{ name: string; decimals: number }>
 ): Promise<FetchedAssetInfo<A>> {
   const requests: [
     Promise<BigNumber>,
@@ -17,9 +18,11 @@ export async function fetchAssetState<A extends Record<string, string>>(
     Promise<string>
   ] = [
     bep20.getBalance(init.address, ownerAddress),
-    bep20.getDecimals(init.address),
+    init.decimals
+      ? Promise.resolve(init.decimals)
+      : bep20.getDecimals(init.address),
     fetchAssetAllowance(bep20, init.address, ownerAddress, allowee),
-    bep20.getName(init.address),
+    init.name ? Promise.resolve(init.name) : bep20.getName(init.address),
   ]
 
   const [amount, decimals, { allowances }, name] = await Promise.all(requests)

@@ -37,7 +37,7 @@ const MintForm = ({ amount, ownerAddress, assetAddress }: MintFormProps) => {
       dispatch(
         approveAssetForMintAction({
           address: state.asset.address,
-          amount: state.shouldBeApproved.mul(10),
+          amount: state.shouldBeApproved,
           ownerAddress,
           contracts: state.contracts,
         })
@@ -52,10 +52,11 @@ const MintForm = ({ amount, ownerAddress, assetAddress }: MintFormProps) => {
       dispatch(
         joinGcdAction({
           assetAddress: state.asset.address,
-          assetAmount: BigNumber.from(10)
+          mintInputAmount: BigNumber.from(10)
             .pow(state.asset.decimals)
             .mul(joinDefaultCount)
             .toString(),
+          asset: state.asset,
           gcdAmount: BigNumber.from(state.asset.conversionRate)
             .mul(joinDefaultCount)
             .toString(),

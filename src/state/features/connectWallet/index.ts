@@ -11,5 +11,5 @@ export { default as reducer } from '@src/state/features/connectWallet/state'
 export type {
   ColateralAsset,
   ExtraReducersApply,
-  InitializedWalletState,
+  InitialisedWalletState,
 } from '@src/state/features/connectWallet/types'
