@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.073c9b0a.css",
-    "main.js": "/static/js/main.c77c5ebd.js",
-    "static/js/787.20bea47b.chunk.js": "/static/js/787.20bea47b.chunk.js",
-    "index.html": "/index.html",
-    "main.073c9b0a.css.map": "/static/css/main.073c9b0a.css.map",
-    "main.c77c5ebd.js.map": "/static/js/main.c77c5ebd.js.map",
-    "787.20bea47b.chunk.js.map": "/static/js/787.20bea47b.chunk.js.map"
+    "main.css": "/slon2015.github.io-gton-bridge-ui/static/css/main.073c9b0a.css",
+    "main.js": "/slon2015.github.io-gton-bridge-ui/static/js/main.31fffca2.js",
+    "static/js/787.20bea47b.chunk.js": "/slon2015.github.io-gton-bridge-ui/static/js/787.20bea47b.chunk.js",
+    "index.html": "/slon2015.github.io-gton-bridge-ui/index.html",
+    "main.073c9b0a.css.map": "/slon2015.github.io-gton-bridge-ui/static/css/main.073c9b0a.css.map",
+    "main.31fffca2.js.map": "/slon2015.github.io-gton-bridge-ui/static/js/main.31fffca2.js.map",
+    "787.20bea47b.chunk.js.map": "/slon2015.github.io-gton-bridge-ui/static/js/787.20bea47b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.c77c5ebd.js"
+    "static/js/main.31fffca2.js"
   ]
 }
