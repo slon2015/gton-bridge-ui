@@ -6,7 +6,7 @@ import { BigNumber } from 'ethers'
 export type MintFormProps = {
   assetAddress: string
   ownerAddress: string
-  amount?: string
+  amount?: BigNumber
 }
 
 export type Approves = {
@@ -34,4 +34,5 @@ export type MintFormState = (
   asset: FullMintCollateralAsset
   chainId: number
   contracts: NetworkContracts
+  amountToFulfill?: BigNumber
 }

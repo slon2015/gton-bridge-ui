@@ -7,7 +7,6 @@ import {
   joinGcdAction,
   updateUsdRateAction,
 } from '@src/state/features/gcd'
-import { BigNumber } from 'ethers'
 import { formatCurrency } from '@src/utils/currency'
 
 const MintForm = ({ amount, ownerAddress, assetAddress }: MintFormProps) => {
@@ -45,21 +44,14 @@ const MintForm = ({ amount, ownerAddress, assetAddress }: MintFormProps) => {
     }
   }
 
-  const joinDefaultCount = 10
-
   const mint = async () => {
-    if (state.status === 'readyToMint' && state.asset.conversionRate) {
+    if (state.status === 'readyToMint' && amount && state.amountToFulfill) {
       dispatch(
         joinGcdAction({
           assetAddress: state.asset.address,
-          mintInputAmount: BigNumber.from(10)
-            .pow(state.asset.decimals)
-            .mul(joinDefaultCount)
-            .toString(),
+          mintInputAmount: state.amountToFulfill,
           asset: state.asset,
-          gcdAmount: BigNumber.from(state.asset.conversionRate)
-            .mul(joinDefaultCount)
-            .toString(),
+          gcdAmount: amount.toString(),
           ownerAddress: state.ownerAddress,
           contracts: state.contracts,
         })
@@ -69,7 +61,8 @@ const MintForm = ({ amount, ownerAddress, assetAddress }: MintFormProps) => {
 
   let form: JSX.Element = <Fragment></Fragment>
 
-  const buttonAvailable = state.asset.operation === 'none'
+  const buttonAvailable =
+    state.asset.operation === 'none' && amount && amount.gt(0)
 
   if (state.status === 'emptyAmount') {
     form = <span>No asset found. Please top-up it and refresh page</span>
@@ -110,6 +103,20 @@ const MintForm = ({ amount, ownerAddress, assetAddress }: MintFormProps) => {
               You able to mint {conversionRate} GCD for 1 {state.asset.name}
             </span>
             <br />
+            {state.amountToFulfill && amount && (
+              <Fragment>
+                <span>
+                  {' '}
+                  You need{' '}
+                  {formatCurrency(
+                    state.amountToFulfill,
+                    state.asset.decimals
+                  )}{' '}
+                  {state.asset.name} to mint {formatCurrency(amount, 18)} GCD
+                </span>
+                <br />
+              </Fragment>
+            )}
             {buttonAvailable && <button onClick={mint}>Mint</button>}
           </Fragment>
         )}

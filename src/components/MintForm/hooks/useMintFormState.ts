@@ -1,7 +1,7 @@
 import { InitialisedWalletState } from '@src/state/features/connectWallet'
 import { InitialisedMintState } from '@src/state/features/gcd/types'
 import { RootState } from '@src/state/store'
-import { BigNumber } from 'ethers'
+import { BigNumber, BigNumberish } from 'ethers'
 import { useSelector } from 'react-redux'
 import { approveAmmounts } from '@src/utils/approves'
 import { FullMintCollateralAsset, MintFormState } from '../types'
@@ -26,7 +26,7 @@ function resolveFullAssetInfo(
 
 export function useMintFormState(
   assetAddress: string,
-  mintAmount?: string
+  mintAmount?: BigNumberish
 ): MintFormState {
   return useSelector<RootState, MintFormState>((state) => {
     if (
@@ -39,12 +39,20 @@ export function useMintFormState(
     const asset = resolveFullAssetInfo(state, assetAddress)
     const chainId = state.wallet.data.chainId
 
+    const amountToFulfill =
+      mintAmount && asset.conversionRate
+        ? BigNumber.from(mintAmount)
+            .div(asset.conversionRate)
+            .mul(BigNumber.from(10).pow(asset.decimals))
+        : undefined
+
     if (BigNumber.from(asset.amount).eq(0)) {
       return {
         status: 'emptyAmount',
         asset,
         chainId,
         contracts: state.wallet.data.contracts,
+        amountToFulfill,
       }
     }
 
@@ -62,6 +70,7 @@ export function useMintFormState(
         minimalApproveAmount: approves.minimalApproveAmount,
         chainId,
         contracts: state.wallet.data.contracts,
+        amountToFulfill,
       }
     }
 
@@ -71,6 +80,7 @@ export function useMintFormState(
       chainId,
       ownerAddress: state.wallet.data.address,
       contracts: state.wallet.data.contracts,
+      amountToFulfill,
     }
   })
 }

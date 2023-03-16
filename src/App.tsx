@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import './App.css'
 import { useMetaMask } from 'metamask-react'
 import { useSelector } from 'react-redux'
@@ -17,10 +17,14 @@ import {
 import MintForm from '@src/components/MintForm'
 import { fetchNetworkMintStateAction } from './state/features/common/thunks/fetchNetworkStatus'
 import BridgeFrom from './components/BridgeForm/component'
+import { BigNumber } from 'ethers'
+import { toWei } from './utils/currency'
 
 function App() {
   const { status, connect, account, chainId, switchChain, ethereum } =
     useMetaMask()
+
+  const [mintAmount, setMintAmount] = useState(BigNumber.from(0))
 
   const dispatch = useDispatch()
   const state = useSelector((state: RootState) => ({
@@ -112,11 +116,20 @@ function App() {
   ) {
     assets = (
       <Fragment>
-        <h2>Assets</h2>
+        <h2>Mint</h2>
+        <span>How many GCD you want to mint?</span>
+        <br />
+        <input
+          type="number"
+          onChange={(e) => setMintAmount(toWei(e.target.value, 18))}
+        />
+        <br />
+        <h3>Assets</h3>
         {state.assets.map((asset, i) => (
           <MintForm
             assetAddress={asset.address}
             ownerAddress={account}
+            amount={mintAmount}
             key={i}
           />
         ))}

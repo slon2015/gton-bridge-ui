@@ -11,7 +11,7 @@ const BridgeFrom = ({ account, chainId }: BridgeFormProps) => {
   const state = useBridgeFormState()
   const dispatch = useDispatch()
 
-  const [amountOtBridge, setAmountToBridge] = useState(BigNumber.from('0'))
+  const [amountToBridge, setAmountToBridge] = useState(BigNumber.from('0'))
 
   useFetchGcdAmountEffect(state.contracts, account, chainId)
 
@@ -46,7 +46,7 @@ const BridgeFrom = ({ account, chainId }: BridgeFormProps) => {
       dispatch,
       state.contracts,
       account,
-      amountOtBridge
+      amountToBridge
     )
     return (
       <div>
