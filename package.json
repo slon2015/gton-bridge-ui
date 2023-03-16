@@ -13,7 +13,6 @@
     "@types/react-dom": "^18.0.11",
     "ethers": "^5.7.0",
     "metamask-react": "^2.6.0",
-    "p-all": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",

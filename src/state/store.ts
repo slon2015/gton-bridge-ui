@@ -1,12 +1,14 @@
 import { configureStore, ThunkDispatch, AnyAction } from '@reduxjs/toolkit'
 import { useDispatch as useDispatchHook } from 'react-redux'
-import { reducer as connectWallet } from '@src/state/features/connectWallet'
-import { reducer as gcdReducer } from '@src/state/features/gcd'
+import { reducer as wallet } from '@src/state/features/connectWallet'
+import { reducer as gcd } from '@src/state/features/gcd'
+import { reducer as bridge } from '@src/state/features/bridge'
 
 export const store = configureStore({
   reducer: {
-    wallet: connectWallet,
-    gcd: gcdReducer,
+    wallet,
+    gcd,
+    bridge,
   },
 })
 

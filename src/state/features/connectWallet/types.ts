@@ -1,4 +1,5 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
+import { NetworkContracts } from '@src/config/networks'
 
 export type ColateralAsset = {
   name: string
@@ -17,6 +18,7 @@ export type ConnectedWalletState = {
 export type InitializedWalletState = Omit<ConnectedWalletState, 'status'> & {
   status: 'initialized'
   colateralAssets: Array<ColateralAsset>
+  contracts: NetworkContracts
 }
 
 export type InappropriateNetworkWalletState = {
@@ -48,6 +50,6 @@ export type ChangeNetworkRequest = {
   chainName: string
 }
 
-export type ThunkApply<S> = (
+export type ExtraReducersApply<S> = (
   builder: ActionReducerMapBuilder<S>
 ) => ActionReducerMapBuilder<S>

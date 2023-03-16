@@ -2,11 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import OracleService from '@src/services/oracle'
 import VaultParametersService from '@src/services/vaultParameters'
 import { BigNumber } from 'ethers'
-import type {
-  MintState,
-  UpdateUsdRateRequest,
-} from '@src/state/features/gcd/types'
-import { ThunkApply } from '@src/state/features/connectWallet'
+import type { UpdateUsdRateRequest } from '@src/state/features/gcd/types'
 
 export const updateUsdRateAction = createAsyncThunk<
   string,
@@ -33,20 +29,3 @@ export const updateUsdRateAction = createAsyncThunk<
     return rate.mul(collateralCoef).div(100).mul(riskRatio).div(100).toString()
   }
 )
-
-export const thunkApply: ThunkApply<MintState> = (builder) => {
-  return builder.addCase(updateUsdRateAction.fulfilled, (state, action) => {
-    if (state.data.status === 'received') {
-      const assetIndex = state.data.colateralAssets.findIndex(
-        (asset) => asset.address === action.meta.arg.assetAddress
-      )
-      if (assetIndex === -1) {
-        throw new Error('Asset not found')
-      }
-
-      state.data.colateralAssets[assetIndex].conversionRate = action.payload
-    } else {
-      throw new Error('State still not received')
-    }
-  })
-}

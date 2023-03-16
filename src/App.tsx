@@ -24,13 +24,16 @@ function App() {
   const dispatch = useDispatch()
   const state = useSelector((state: RootState) => ({
     ...state.wallet,
+    isInitialized:
+      state.gcd.data.status === 'received' &&
+      state.wallet.data.status === 'initialized',
     assets:
       state.gcd.data.status === 'received'
         ? state.gcd.data.colateralAssets
         : null,
     vaultAddress:
-      state.gcd.data.status === 'received'
-        ? state.gcd.data.contracts.vaultContractAddress
+      state.wallet.data.status === 'initialized'
+        ? state.wallet.data.contracts.vaultContractAddress
         : null,
   }))
 
@@ -99,7 +102,12 @@ function App() {
 
   let assets: JSX.Element
 
-  if (account && state.vaultAddress != null && state.assets != null) {
+  if (
+    account &&
+    state.vaultAddress != null &&
+    state.assets != null &&
+    state.isInitialized
+  ) {
     assets = (
       <Fragment>
         <h2>Assets</h2>

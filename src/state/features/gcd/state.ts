@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { MintState } from '@src/state/features/gcd/types'
-import { thunksApply } from '@src/state/features/gcd/thunks'
+import { extraReducersList } from '@src/state/features/gcd/reducers'
 
 const initialState: MintState = {
   data: { status: 'initialisation' },
@@ -11,7 +11,7 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    thunksApply.forEach((thunkApply) => thunkApply(builder))
+    extraReducersList.forEach((extraReducer) => extraReducer(builder))
   },
 })
 

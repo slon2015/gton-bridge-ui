@@ -1,14 +1,15 @@
-import { ThunkApply } from '@src/state/features/connectWallet'
+import { ExtraReducersApply } from '@src/state/features/connectWallet'
 import { fetchNetworkMintStateAction } from '@src/state/features/common/thunks/fetchNetworkStatus'
 import { WalletState } from '../types'
 
-export const thunkApply: ThunkApply<WalletState> = (builder) => {
+export const extraReducers: ExtraReducersApply<WalletState> = (builder) => {
   return builder
     .addCase(fetchNetworkMintStateAction.fulfilled, (state, action) => {
       state.data = {
         status: 'initialized',
         chainId: action.meta.arg.chainId,
         address: action.meta.arg.ownerAddress,
+        contracts: action.meta.arg.contracts,
         colateralAssets: action.payload.colateralAssets.map((asset) => ({
           name: asset.name,
           decimals: asset.decimals,

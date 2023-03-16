@@ -44,7 +44,7 @@ export function useMintFormState(
         status: 'emptyAmount',
         asset,
         chainId,
-        contracts: state.gcd.data.contracts,
+        contracts: state.wallet.data.contracts,
       }
     }
 
@@ -59,7 +59,7 @@ export function useMintFormState(
         asset,
         shouldBeApproved,
         chainId,
-        contracts: state.gcd.data.contracts,
+        contracts: state.wallet.data.contracts,
       }
     }
 
@@ -68,7 +68,7 @@ export function useMintFormState(
       asset,
       chainId,
       ownerAddress: state.wallet.data.address,
-      contracts: state.gcd.data.contracts,
+      contracts: state.wallet.data.contracts,
     }
   })
 }

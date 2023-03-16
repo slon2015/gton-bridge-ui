@@ -1,13 +1,15 @@
-export {
-  default as reducer,
+import { actions } from '@src/state/features/connectWallet/state'
+
+export const {
   metamaskChangeChainRequested,
   metamaskConnected,
   metamaskDisconnected,
   metamaskUnavaliable,
-} from '@src/state/features/connectWallet/state'
+} = actions
+export { default as reducer } from '@src/state/features/connectWallet/state'
 
 export type {
   ColateralAsset,
-  ThunkApply,
+  ExtraReducersApply,
   InitializedWalletState,
 } from '@src/state/features/connectWallet/types'

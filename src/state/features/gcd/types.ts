@@ -11,7 +11,6 @@ export type ColateralAsset = {
 export type InitialisedMintState = {
   status: 'received'
   colateralAssets: Array<ColateralAsset>
-  contracts: NetworkContracts
 }
 
 export type MintState = {
@@ -38,7 +37,7 @@ export type InitialNetworkMintConfig = {
 }
 
 export type NetworkSpecificMintState = Required<
-  Pick<InitialisedMintState, 'colateralAssets' | 'contracts'>
+  Pick<InitialisedMintState, 'colateralAssets'>
 >
 
 export type AssetApproveRequest = {
