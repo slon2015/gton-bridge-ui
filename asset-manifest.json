@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ssp-web3-game/static/css/main.073c9b0a.css",
-    "main.js": "/ssp-web3-game/static/js/main.cf80c011.js",
-    "static/js/787.20bea47b.chunk.js": "/ssp-web3-game/static/js/787.20bea47b.chunk.js",
-    "index.html": "/ssp-web3-game/index.html",
-    "main.073c9b0a.css.map": "/ssp-web3-game/static/css/main.073c9b0a.css.map",
-    "main.cf80c011.js.map": "/ssp-web3-game/static/js/main.cf80c011.js.map",
-    "787.20bea47b.chunk.js.map": "/ssp-web3-game/static/js/787.20bea47b.chunk.js.map"
+    "main.css": "/gton-bridge-ui/static/css/main.073c9b0a.css",
+    "main.js": "/gton-bridge-ui/static/js/main.3463d751.js",
+    "static/js/787.20bea47b.chunk.js": "/gton-bridge-ui/static/js/787.20bea47b.chunk.js",
+    "index.html": "/gton-bridge-ui/index.html",
+    "main.073c9b0a.css.map": "/gton-bridge-ui/static/css/main.073c9b0a.css.map",
+    "main.3463d751.js.map": "/gton-bridge-ui/static/js/main.3463d751.js.map",
+    "787.20bea47b.chunk.js.map": "/gton-bridge-ui/static/js/787.20bea47b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.cf80c011.js"
+    "static/js/main.3463d751.js"
   ]
 }
